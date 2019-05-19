@@ -69,7 +69,7 @@ function displayEmployees(){
                 <td>${lastName}</td>
                 <td>${ID}</td>
                 <td>${title}</td>
-                <td class="annualSalaryOut">$${annualSalary}</td>
+                <td class="annualSalaryOut">${ numeral(annualSalary).format( '$0,0.00' ) }</td>
                 <td><button class="btn btn-light">Remove</button></td>
             </tr>
         `)
@@ -87,5 +87,5 @@ function calculateMonthlyCost(){
     // calculate total monthly cost
     let totalMonthly = totalAnnualSalary / 12;
     // display to DOM
-    $( '#monthlyOut' ).html( parseFloat( totalMonthly ).toFixed(2) );
+    $( '#monthlyOut' ).html( numeral(totalMonthly).format( '$0,0.00' ) );
 } // end funk
