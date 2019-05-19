@@ -5,14 +5,23 @@ let employees = [];
 
 function readyNow(){
     console.log( 'JQ' );
-    // // `handleSubmitClick();`
+    // activate click listeners
+    // submit button
     $( '#submitBtn' ).on( 'click', handleSubmitClick ); 
-    
-    // // display employee objects to `#employeeTable`
-    // loop over array, for each employee
-    // append employee attributes
+    // remove button
+
+    // display employees, total monthly
+    displayEmployees();
+    // displayMonthlyCost();
+    // calculate total monthly cost
+            // calculate total annual salary
+                // create local variable
+                // loop over employees add each salary to total
+            // let monthly cost equal total salaries divided by 12
+            // display to 
 } // end funk
 
+// // the `handleSubmitClick` function
 function handleSubmitClick() {
     // get user input
     let firstNameIn = $('#firstNameIn').val();
@@ -20,15 +29,54 @@ function handleSubmitClick() {
     let IDIn = $('#IDIn').val();
     let titleIn = $('#titleIn').val();
     let annualSalaryIn = $('#annualSalaryIn').val();
-    // create employee object
-    let newEmployee = {
-        firstName: firstNameIn,
-        lastName: lastNameIn,
-        ID: IDIn,
-        title: titleIn,
-        annualSalary: annualSalaryIn
-    } // end obj
-    // push to array of employees
-    employees.push(newEmployee);
-    console.log(employees);
+    // if inputs are filled, create a new employee
+    if( firstNameIn != '' && lastNameIn != '' && IDIn != '' && titleIn != '' && annualSalaryIn != '' ){
+        // create employee object
+        let newEmployee = {
+            firstName: firstNameIn,
+            lastName: lastNameIn,
+            ID: IDIn,
+            title: titleIn,
+            annualSalary: annualSalaryIn
+        } // end obj
+        // push to new employee to `employees`
+        employees.push(newEmployee);
+        console.log(employees);
+        // clear inputs 
+        $( '#firstNameIn' ).val( '' );
+        $( '#lastNameIn' ).val( '' );
+        $( '#IDIn' ).val( '' );
+        $( '#titleIn' ).val( '' );
+        $( '#annualSalaryIn' ).val( '' );
+        // update table
+        displayEmployees();
+    } else {
+        alert( 'input(s) left blank. please enter all the information!' );
+    } // end if else
+} // end funk
+
+// // the `displayEmployees` function
+function displayEmployees(){
+    // empty the table
+    $('#employeesOut').empty();
+    // loop over employees and append to DOM
+    for (let obj of employees) {
+        // get employee info
+        let firstName = obj.firstName;
+        let lastName = obj.lastName;
+        let ID = obj.ID;
+        let title = obj.title;
+        let annualSalary = obj.annualSalary;
+        // add employee to the table
+        $('#employeesOut').append(`
+            <tr>
+                <td>${firstName}</td>
+                <td>${lastName}</td>
+                <td>${ID}</td>
+                <td>${title}</td>
+                <td class="annualSalaryOut">${annualSalary}</td>
+                <td><button class="btn btn-light">Remove</button></td>
+            </tr>
+        `)
+    } // end for
 } // end funk
