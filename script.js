@@ -6,10 +6,14 @@ let employees = [];
 function readyNow(){
     console.log( 'JQ' );
     // // `handleSubmitClick();`
-    $( '#submitBtn' ).on( 'click', onSubmit ); 
+    $( '#submitBtn' ).on( 'click', handleSubmitClick ); 
+    
+    // // display employee objects to `#employeeTable`
+    // loop over array, for each employee
+    // append employee attributes
+} // end funk
 
-function onSubmit(){
-    console.log('submit employee');
+function handleSubmitClick() {
     // get user input
     let firstNameIn = $('#firstNameIn').val();
     let lastNameIn = $('#lastNameIn').val();
@@ -27,24 +31,4 @@ function onSubmit(){
     // push to array of employees
     employees.push(newEmployee);
     console.log(employees);
-    // function displayEmployeeList(){
-
-    // }
-        
-    }
-}
-
-
-
-
-
-
-
-
-    // push to array of employees
-    
-    // // display employee objects to `#employeeTable`
-    // loop over array, for each employee
-    // append employee attributes
-}
-
+} // end funk
