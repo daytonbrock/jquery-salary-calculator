@@ -12,13 +12,7 @@ function readyNow(){
 
     // display employees, total monthly
     displayEmployees();
-    // displayMonthlyCost();
-    // calculate total monthly cost
-            // calculate total annual salary
-                // create local variable
-                // loop over employees add each salary to total
-            // let monthly cost equal total salaries divided by 12
-            // display to 
+    calculateMonthlyCost();
 } // end funk
 
 // // the `handleSubmitClick` function
@@ -53,6 +47,7 @@ function handleSubmitClick() {
     } else {
         alert( 'input(s) left blank. please enter all the information!' );
     } // end if else
+    calculateMonthlyCost();
 } // end funk
 
 // // the `displayEmployees` function
@@ -74,9 +69,23 @@ function displayEmployees(){
                 <td>${lastName}</td>
                 <td>${ID}</td>
                 <td>${title}</td>
-                <td class="annualSalaryOut">${annualSalary}</td>
+                <td class="annualSalaryOut">$${annualSalary}</td>
                 <td><button class="btn btn-light">Remove</button></td>
             </tr>
         `)
     } // end for
+} // end funk
+
+function calculateMonthlyCost(){
+    // calculate total of employee salaries
+    let totalAnnualSalary = 0;
+    // loop over employees add each salary to total
+    for( let employee of employees ){
+        totalAnnualSalary += parseFloat( employee.annualSalary );
+    } // end for
+    console.log( totalAnnualSalary );
+    // calculate total monthly cost
+    let totalMonthly = totalAnnualSalary / 12;
+    // display to DOM
+    $( '#monthlyOut' ).html( parseFloat( totalMonthly ).toFixed(2) );
 } // end funk
