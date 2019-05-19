@@ -2,7 +2,9 @@ $( readyNow );
 
 // global variables
 let employees = [];
+let monthlyBudget = 20000;
 
+// // the `readyNow` function
 function readyNow(){
     // activate click listeners
     // submit button
@@ -43,12 +45,14 @@ function handleSubmitClick() {
         $( '#annualSalaryIn' ).val( '' );
         // update table
         displayEmployees();
+        // if total monthly exceeds $20,000 turn background red
     } else {
         alert( 'input(s) left blank. please enter all the information!' );
     } // end if else
     calculateMonthlyCost();
 } // end funk
 
+// // the `handleRemoveClick` function
 function handleRemoveClick(){
     // find employee in array that matches clicked employee
     for( let i=0; i<employees.length; i++ ){
@@ -87,9 +91,11 @@ function displayEmployees(){
     } // end for
 } // end funk
 
+// // the `calculateMonthlyCost` function
 function calculateMonthlyCost(){
     // calculate total of employee salaries
     let totalAnnualSalary = 0;
+    let monthlyOut = $( '#monthlyOut' )
     // loop over employees add each salary to total
     for( let employee of employees ){
         totalAnnualSalary += parseFloat( employee.annualSalary );
@@ -97,5 +103,13 @@ function calculateMonthlyCost(){
     // calculate total monthly cost
     let totalMonthly = totalAnnualSalary / 12;
     // display to DOM
-    $( '#monthlyOut' ).html( numeral(totalMonthly).format( '$0,0.00' ) );
+    monthlyOut.html( numeral(totalMonthly).format( '$0,0.00' ) );
+    // alert with red background if total monthly is over budget
+    if( totalMonthly > monthlyBudget ){
+        monthlyOut.css( 'background', 'red' );
+        monthlyOut.css( 'color', 'white' );
+    } else {
+        monthlyOut.css( 'background', 'white' );
+        monthlyOut.css( 'color', 'black' );
+    } // end if else
 } // end funk
