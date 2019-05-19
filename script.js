@@ -4,13 +4,13 @@ $( readyNow );
 let employees = [];
 
 function readyNow(){
-    console.log( 'JQ' );
     // activate click listeners
     // submit button
     $( '#submitBtn' ).on( 'click', handleSubmitClick ); 
     // remove button
+    $( '#employeesOut' ).on( 'click', '#removeBtn', handleRemoveClick );
 
-    // display employees, total monthly
+    // display employees and calculate monthly cost
     displayEmployees();
     calculateMonthlyCost();
 } // end funk
@@ -35,7 +35,6 @@ function handleSubmitClick() {
         } // end obj
         // push to new employee to `employees`
         employees.push(newEmployee);
-        console.log(employees);
         // clear inputs 
         $( '#firstNameIn' ).val( '' );
         $( '#lastNameIn' ).val( '' );
@@ -48,6 +47,18 @@ function handleSubmitClick() {
         alert( 'input(s) left blank. please enter all the information!' );
     } // end if else
     calculateMonthlyCost();
+} // end funk
+
+function handleRemoveClick(){
+    // find employee in array that matches clicked employee
+    for( let i=0; i<employees.length; i++ ){
+        if( $(this).parent().siblings( '#listFirstName' ).html() === employees[i].firstName ){
+            // remove that employee from array
+            employees.splice( i, 1 );
+        } // end if
+    } // end for
+    displayEmployees();
+    calculateMonthlyCost();       
 } // end funk
 
 // // the `displayEmployees` function
@@ -65,12 +76,12 @@ function displayEmployees(){
         // add employee to the table
         $('#employeesOut').append(`
             <tr>
-                <td>${firstName}</td>
+                <td id="listFirstName">${firstName}</td>
                 <td>${lastName}</td>
                 <td>${ID}</td>
                 <td>${title}</td>
                 <td class="annualSalaryOut">${ numeral(annualSalary).format( '$0,0.00' ) }</td>
-                <td><button class="btn btn-light">Remove</button></td>
+                <td><button id="removeBtn" class="btn btn-light">Remove</button></td>
             </tr>
         `)
     } // end for
@@ -83,7 +94,6 @@ function calculateMonthlyCost(){
     for( let employee of employees ){
         totalAnnualSalary += parseFloat( employee.annualSalary );
     } // end for
-    console.log( totalAnnualSalary );
     // calculate total monthly cost
     let totalMonthly = totalAnnualSalary / 12;
     // display to DOM
